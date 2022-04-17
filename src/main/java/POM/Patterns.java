@@ -1,32 +1,28 @@
 package POM;
 
-
-import FileReader.PropertiesFile;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 public class Patterns {
+    FileInputStream fis;
+    Properties properties = new Properties();
 
-
-
-
-    private final String[] data = PropertiesFile.propertiesFileReader(new String[]{"BaseUrl","User_Agent","User_Agent_Type"});
-    private final String BaseUrl = data[0];
-    private final String User_Agent= data[1];
-    private final String User_Agent_Type= data[2];
-
-    public void BaseURL(){
-        RestAssured.baseURI=BaseUrl;
+    public void BaseURL() throws IOException {
+        fis = new FileInputStream("src/test/resources/DataDriven/data.properties");
+        properties.load(fis);
+        RestAssured.baseURI=properties.getProperty("BaseUrl");
     }
 
     public Response SetRequestHeaders(){
-        var response = RestAssured.given().header(User_Agent,User_Agent_Type)
+        var response = RestAssured.given().header(properties.getProperty("User_Agent"),properties.getProperty("User_Agent_Type"))
                 .contentType(ContentType.XML)
                 .when()
-                .get(BaseUrl)
+                .get(properties.getProperty("BaseUrl"))
                 .then()
                 .extract()
                 .response();
@@ -37,5 +33,4 @@ public class Patterns {
         List<String> values = SetRequestHeaders().xmlPath().getList("patterns.pattern.numViews");
         return values;
     }
-
 }
