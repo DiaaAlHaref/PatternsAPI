@@ -25,11 +25,12 @@ public class NumViews {
         /*int[] intArray= new int[patterns.ValuesList().size()];
         int count=0;*/
         for (int i=0;i<20;i++){
+            //String value = response.body("patterns["+i+"].numViews", Matchers.greaterThan(".?[4-9]*[0-9]{4,}$"));
             if(Integer.parseInt(patterns.ValuesList().get(i))>value){
               /*  intArray[count]=Integer.parseInt(patterns.ValuesList().get(i));
                 count++;*/
                 flag = true;
-                System.out.println("NumViews Values of "+" "+i+" "+"Greater Than "+value+          " are : "+
+                System.out.println("NumViews Values of "+" "+i+" "+"Greater Than "+value+" are : "+
                         Integer.parseInt(patterns.ValuesList().get(i)));
             }else
             {
