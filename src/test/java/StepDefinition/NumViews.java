@@ -3,6 +3,7 @@ package StepDefinition;
 import POM.Patterns;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.testng.asserts.SoftAssert;
 
 public class NumViews {
@@ -15,7 +16,7 @@ public class NumViews {
         patterns.BaseURL();
     }
 
-    @Then("User Set Request Headers")
+    @When("User Set Request Headers")
     public void userSetRequestHeaders() {
        patterns.SetRequestHeaders();
     }
